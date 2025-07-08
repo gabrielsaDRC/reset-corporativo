@@ -8,7 +8,7 @@ import { RegistrationPage } from './pages/RegistrationPage';
 function App() {
   return (
     <AppProvider>
-      <Router basename="/reset-corporativo">
+      <Router>
         <Routes>
           {/* Página principal do evento */}
           <Route path="/" element={<LandingPage />} />
