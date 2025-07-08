@@ -10,6 +10,9 @@ export interface Participant {
   estado: string;
   tipoInscricao: 'gratuita' | 'paga';
   statusPagamento: 'pendente' | 'aprovado' | 'cancelado';
+  nomeEmpresa?: string;
+  faturamento?: string;
+  areaAtuacao?: string;
   dataInscricao: string;
   confirmadoEvento: boolean;
   isUpdating?: boolean; // Para controle de estado de carregamento

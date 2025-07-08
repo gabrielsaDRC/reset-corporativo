@@ -39,6 +39,9 @@ export const participantService = {
       telefone: participant.telefone,
       dataNascimento: participant.data_nascimento || '',
       genero: participant.genero || '',
+      nomeEmpresa: participant.nome_empresa || '',
+      faturamento: participant.faturamento || '',
+      areaAtuacao: participant.area_atuacao || '',
       cidade: participant.cidade,
       estado: participant.estado,
       tipoInscricao: participant.tipo_inscricao,
@@ -58,6 +61,9 @@ export const participantService = {
         telefone: participant.telefone,
         data_nascimento: participant.dataNascimento || null,
         genero: participant.genero || null,
+        nome_empresa: participant.nomeEmpresa || null,
+        faturamento: participant.faturamento || null,
+        area_atuacao: participant.areaAtuacao || null,
         cidade: participant.cidade,
         estado: participant.estado,
         tipo_inscricao: participant.tipoInscricao,
@@ -80,6 +86,9 @@ export const participantService = {
       telefone: data.telefone,
       dataNascimento: data.data_nascimento || '',
       genero: data.genero || '',
+      nomeEmpresa: data.nome_empresa || '',
+      faturamento: data.faturamento || '',
+      areaAtuacao: data.area_atuacao || '',
       cidade: data.cidade,
       estado: data.estado,
       tipoInscricao: data.tipo_inscricao,
@@ -100,6 +109,9 @@ export const participantService = {
     if (updates.telefone !== undefined) updateData.telefone = updates.telefone;
     if (updates.dataNascimento !== undefined) updateData.data_nascimento = updates.dataNascimento || null;
     if (updates.genero !== undefined) updateData.genero = updates.genero || null;
+    if (updates.nomeEmpresa !== undefined) updateData.nome_empresa = updates.nomeEmpresa || null;
+    if (updates.faturamento !== undefined) updateData.faturamento = updates.faturamento || null;
+    if (updates.areaAtuacao !== undefined) updateData.area_atuacao = updates.areaAtuacao || null;
     if (updates.cidade !== undefined) updateData.cidade = updates.cidade;
     if (updates.estado !== undefined) updateData.estado = updates.estado;
     if (updates.tipoInscricao !== undefined) updateData.tipo_inscricao = updates.tipoInscricao;

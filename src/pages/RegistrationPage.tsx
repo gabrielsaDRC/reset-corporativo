@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User, Mail, Phone, MapPin, Calendar, Check, AlertCircle, Gift, CreditCard, ArrowLeft } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Calendar, Check, AlertCircle, Gift, CreditCard, ArrowLeft, Building, DollarSign, Briefcase } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { Header } from '../components/Header';
 import { EventPresentation } from '../components/EventPresentation';
@@ -22,6 +22,9 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
     telefone: '',
     dataNascimento: '',
     genero: '',
+    nomeEmpresa: '',
+    faturamento: '',
+    areaAtuacao: '',
     cidade: '',
     estado: '',
     tipoInscricao: type
@@ -77,6 +80,9 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
           telefone: '',
           dataNascimento: '',
           genero: '',
+          nomeEmpresa: '',
+          faturamento: '',
+          areaAtuacao: '',
           cidade: '',
           estado: '',
           tipoInscricao: type
@@ -365,6 +371,88 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
                         style={{ '--tw-ring-color': customColor } as React.CSSProperties}
                         placeholder="(11) 99999-9999"
                       />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Nome da Empresa
+                    </label>
+                    <div className="relative">
+                      <Building className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                      <input
+                        type="text"
+                        name="nomeEmpresa"
+                        value={formData.nomeEmpresa}
+                        onChange={handleChange}
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                        style={{ '--tw-ring-color': customColor } as React.CSSProperties}
+                        placeholder="Nome da sua empresa"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Faturamento da Empresa
+                    </label>
+                    <div className="relative">
+                      <DollarSign className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                      <select
+                        name="faturamento"
+                        value={formData.faturamento}
+                        onChange={handleChange}
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                        style={{ '--tw-ring-color': customColor } as React.CSSProperties}
+                      >
+                        <option value="">Selecione o faturamento</option>
+                        <option value="ate-100k">Até R$ 100 mil</option>
+                        <option value="100k-500k">R$ 100 mil - R$ 500 mil</option>
+                        <option value="500k-1m">R$ 500 mil - R$ 1 milhão</option>
+                        <option value="1m-5m">R$ 1 milhão - R$ 5 milhões</option>
+                        <option value="5m-10m">R$ 5 milhões - R$ 10 milhões</option>
+                        <option value="acima-10m">Acima de R$ 10 milhões</option>
+                        <option value="nao-informar">Prefiro não informar</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Área de Atuação/Negócio
+                    </label>
+                    <div className="relative">
+                      <Briefcase className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                      <select
+                        name="areaAtuacao"
+                        value={formData.areaAtuacao}
+                        onChange={handleChange}
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                        style={{ '--tw-ring-color': customColor } as React.CSSProperties}
+                      >
+                        <option value="">Selecione a área de atuação</option>
+                        <option value="tecnologia">Tecnologia</option>
+                        <option value="saude">Saúde</option>
+                        <option value="educacao">Educação</option>
+                        <option value="financeiro">Financeiro</option>
+                        <option value="varejo">Varejo</option>
+                        <option value="industria">Indústria</option>
+                        <option value="servicos">Serviços</option>
+                        <option value="consultoria">Consultoria</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="recursos-humanos">Recursos Humanos</option>
+                        <option value="logistica">Logística</option>
+                        <option value="agronegocio">Agronegócio</option>
+                        <option value="construcao">Construção</option>
+                        <option value="alimenticio">Alimentício</option>
+                        <option value="turismo">Turismo</option>
+                        <option value="imobiliario">Imobiliário</option>
+                        <option value="energia">Energia</option>
+                        <option value="telecomunicacoes">Telecomunicações</option>
+                        <option value="governo">Governo/Público</option>
+                        <option value="ong">ONG/Terceiro Setor</option>
+                        <option value="outros">Outros</option>
+                      </select>
                     </div>
                   </div>
 
