@@ -19,7 +19,7 @@ export const AdminPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-purple-400 mx-auto mb-4" />
+          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" style={{ color: '#EA9504' }} />
           <p className="text-gray-300">Carregando painel administrativo...</p>
         </div>
       </div>
@@ -39,7 +39,7 @@ export const AdminPage: React.FC = () => {
         <div className="w-full lg:w-64 bg-white shadow-sm border-b lg:border-b-0 lg:border-r min-h-auto lg:min-h-screen">
           <div className="p-6">
             <div className="flex items-center gap-2 mb-6">
-              <Shield className="w-6 h-6 text-purple-600" />
+              <Shield className="w-6 h-6" style={{ color: '#EA9504' }} />
               <h2 className="text-xl font-bold text-gray-800">
                 Painel Admin
               </h2>
@@ -49,9 +49,14 @@ export const AdminPage: React.FC = () => {
                 onClick={() => setAdminSection('dashboard')}
                 className={`flex-shrink-0 lg:w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors whitespace-nowrap ${
                   adminSection === 'dashboard' 
-                    ? 'bg-purple-50 text-purple-600 border border-purple-200' 
+                    ? 'border' 
                     : 'text-gray-600 hover:bg-gray-50'
                 }`}
+                style={adminSection === 'dashboard' ? { 
+                  backgroundColor: '#FEF3E2', 
+                  color: '#EA9504', 
+                  borderColor: '#F3E8D1' 
+                } : {}}
               >
                 <BarChart3 className="w-5 h-5" />
                 Dashboard
@@ -60,9 +65,14 @@ export const AdminPage: React.FC = () => {
                 onClick={() => setAdminSection('participants')}
                 className={`flex-shrink-0 lg:w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors whitespace-nowrap ${
                   adminSection === 'participants' 
-                    ? 'bg-purple-50 text-purple-600 border border-purple-200' 
+                    ? 'border' 
                     : 'text-gray-600 hover:bg-gray-50'
                 }`}
+                style={adminSection === 'participants' ? { 
+                  backgroundColor: '#FEF3E2', 
+                  color: '#EA9504', 
+                  borderColor: '#F3E8D1' 
+                } : {}}
               >
                 <Users className="w-5 h-5" />
                 Participantes
@@ -71,9 +81,14 @@ export const AdminPage: React.FC = () => {
                 onClick={() => setAdminSection('event-editor')}
                 className={`flex-shrink-0 lg:w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors whitespace-nowrap ${
                   adminSection === 'event-editor' 
-                    ? 'bg-purple-50 text-purple-600 border border-purple-200' 
+                    ? 'border' 
                     : 'text-gray-600 hover:bg-gray-50'
                 }`}
+                style={adminSection === 'event-editor' ? { 
+                  backgroundColor: '#FEF3E2', 
+                  color: '#EA9504', 
+                  borderColor: '#F3E8D1' 
+                } : {}}
               >
                 <Settings className="w-5 h-5" />
                 Configurações

@@ -7,15 +7,15 @@ export const LoadingScreen: React.FC = () => {
       <div className="text-center">
         {/* Logo animado */}
         <div className="relative mb-8">
-          <div className="w-20 h-20 mx-auto bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-2xl">
+          <div className="w-20 h-20 mx-auto bg-gradient-to-r from-orange-500 to-amber-500 rounded-full flex items-center justify-center shadow-2xl" style={{ background: 'linear-gradient(to right, #EA9504, #F59E0B)' }}>
             <Zap className="w-10 h-10 text-white" />
           </div>
           
           {/* Círculos animados ao redor do logo */}
           <div className="absolute inset-0 w-20 h-20 mx-auto">
-            <div className="absolute inset-0 rounded-full border-2 border-purple-400 opacity-20 animate-ping"></div>
-            <div className="absolute inset-2 rounded-full border-2 border-blue-400 opacity-30 animate-ping animation-delay-200"></div>
-            <div className="absolute inset-4 rounded-full border-2 border-purple-300 opacity-40 animate-ping animation-delay-400"></div>
+            <div className="absolute inset-0 rounded-full border-2 opacity-20 animate-ping" style={{ borderColor: '#EA9504' }}></div>
+            <div className="absolute inset-2 rounded-full border-2 opacity-30 animate-ping animation-delay-200" style={{ borderColor: '#F59E0B' }}></div>
+            <div className="absolute inset-4 rounded-full border-2 opacity-40 animate-ping animation-delay-400" style={{ borderColor: '#FBBF24' }}></div>
           </div>
         </div>
 
@@ -31,7 +31,7 @@ export const LoadingScreen: React.FC = () => {
 
         {/* Spinner de carregamento */}
         <div className="flex items-center justify-center gap-3">
-          <Loader2 className="w-6 h-6 text-purple-400 animate-spin" />
+          <Loader2 className="w-6 h-6 animate-spin" style={{ color: '#EA9504' }} />
           <span className="text-gray-400 text-sm">
             Preparando sua experiência
           </span>
@@ -40,24 +40,24 @@ export const LoadingScreen: React.FC = () => {
         {/* Barra de progresso animada */}
         <div className="mt-8 w-64 mx-auto">
           <div className="w-full bg-gray-700 rounded-full h-1">
-            <div className="bg-gradient-to-r from-purple-600 to-blue-600 h-1 rounded-full animate-pulse"></div>
+            <div className="h-1 rounded-full animate-pulse" style={{ background: 'linear-gradient(to right, #EA9504, #F59E0B)' }}></div>
           </div>
         </div>
 
         {/* Pontos de carregamento */}
         <div className="flex justify-center gap-1 mt-6">
-          <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
-          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce animation-delay-100"></div>
-          <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce animation-delay-200"></div>
+          <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: '#EA9504' }}></div>
+          <div className="w-2 h-2 rounded-full animate-bounce animation-delay-100" style={{ backgroundColor: '#F59E0B' }}></div>
+          <div className="w-2 h-2 rounded-full animate-bounce animation-delay-200" style={{ backgroundColor: '#EA9504' }}></div>
         </div>
       </div>
 
       {/* Efeito de partículas no fundo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-purple-400 rounded-full opacity-30 animate-float"></div>
-        <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-blue-400 rounded-full opacity-40 animate-float animation-delay-300"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-purple-300 rounded-full opacity-20 animate-float animation-delay-500"></div>
-        <div className="absolute bottom-1/3 right-1/3 w-1 h-1 bg-blue-300 rounded-full opacity-30 animate-float animation-delay-700"></div>
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 rounded-full opacity-30 animate-float" style={{ backgroundColor: '#EA9504' }}></div>
+        <div className="absolute top-1/3 right-1/4 w-1 h-1 rounded-full opacity-40 animate-float animation-delay-300" style={{ backgroundColor: '#F59E0B' }}></div>
+        <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 rounded-full opacity-20 animate-float animation-delay-500" style={{ backgroundColor: '#FBBF24' }}></div>
+        <div className="absolute bottom-1/3 right-1/3 w-1 h-1 rounded-full opacity-30 animate-float animation-delay-700" style={{ backgroundColor: '#F59E0B' }}></div>
       </div>
 
       <style jsx>{`
