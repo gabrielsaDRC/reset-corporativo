@@ -1,0 +1,4 @@
+# Netlify redirects (caso mude para Netlify no futuro)
+/*    /index.html   200
+
+# GitHub Pages não suporta _redirects, mas mantemos para compatibilidade
