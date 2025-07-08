@@ -70,6 +70,8 @@ ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
 
 ## 📤 Deploy da Aplicação
 
+### Método 1: Deploy Automático via GitHub Actions (Recomendado)
+
 ### 1. Preparar o Código Local
 
 ```bash
@@ -156,6 +158,31 @@ git push origin main
 
 O GitHub Actions automaticamente fará o rebuild e deploy!
 
+### Método 2: Deploy Manual via npm (Alternativo)
+
+Se preferir fazer deploy diretamente do seu ambiente local:
+
+```bash
+# Fazer deploy direto para GitHub Pages
+npm run deploy
+```
+
+Este comando irá:
+1. Fazer o build da aplicação
+2. Criar/atualizar a branch gh-pages
+3. Fazer push dos arquivos compilados
+4. Atualizar automaticamente o GitHub Pages
+
+**Vantagens do deploy manual:**
+- Mais rápido (não precisa esperar o GitHub Actions)
+- Controle total sobre quando fazer deploy
+- Útil para testes rápidos
+
+**Desvantagens:**
+- Precisa rodar localmente
+- Não mantém histórico no GitHub Actions
+- Requer que você tenha o ambiente configurado
+
 ## 🐛 Solução de Problemas
 
 ### Erro: "Failed to fetch"
@@ -184,10 +211,27 @@ Se encontrar problemas:
 
 ## 🎉 Pronto!
 
-Sua landing page de evento está agora online e segura! 
+Sua landing page de evento está agora online e segura!
 
 **URL do seu site**: `https://seuusuario.github.io/nome-do-repositorio`
 **URL do seu site**: `https://gabrielsadrc.github.io/reset-corporativo`
+
+### Como usar:
+
+**Para desenvolvimento:**
+```bash
+npm run dev  # Servidor local
+```
+
+**Para deploy:**
+```bash
+npm run deploy  # Deploy direto para GitHub Pages
+```
+
+**Para build apenas:**
+```bash
+npm run build  # Gera arquivos na pasta dist/
+```
 
 ### Próximos Passos:
 - [ ] Testar todas as funcionalidades online
