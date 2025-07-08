@@ -118,6 +118,20 @@ nslookup www.resetcorporativo.com
 - `/inscricao-premium` - Inscrição premium
 - `/administrativo` - Painel administrativo
 
+## 🔧 **Solução para Roteamento SPA**
+
+Para resolver o problema de 404 em rotas diretas (como `/administrativo`), implementamos:
+
+1. **Arquivo 404.html**: Redireciona automaticamente para a SPA
+2. **Script no main.tsx**: Processa os redirecionamentos
+3. **Configuração no Vite**: Copia arquivos necessários
+
+### Como funciona:
+- Usuário acessa `www.resetcorporativo.com/administrativo`
+- GitHub Pages não encontra o arquivo e serve `404.html`
+- Script redireciona para `www.resetcorporativo.com/?/administrativo`
+- React Router processa a rota corretamente
+
 ## 🔒 Segurança e SEO
 
 ### ✅ **Configurações implementadas:**

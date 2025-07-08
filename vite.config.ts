@@ -9,6 +9,8 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
+    // Copiar 404.html para o build
+    copyPublicDir: true,
     rollupOptions: {
       output: {
         manualChunks: {
