@@ -23,20 +23,6 @@ export const Header: React.FC<HeaderProps> = ({ isAdminPage = false }) => {
         <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
           <div className="text-center lg:text-left">
             <h1 className="text-xl lg:text-3xl font-bold mb-2 leading-tight">{eventData.nome}</h1>
-            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-4 text-sm">
-              <div className="flex items-center gap-1">
-                <Calendar className="w-4 h-4" />
-                <span>{eventData.data}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
-                <span>{eventData.horario}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <MapPin className="w-4 h-4" />
-                <span className="break-words">{eventData.local}</span>
-              </div>
-            </div>
           </div>
           
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
