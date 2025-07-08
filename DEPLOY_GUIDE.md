@@ -61,8 +61,12 @@ ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
 ### 3. Habilitar GitHub Pages
 
 1. Vá em **Settings** → **Pages**
-2. Em **Source**, selecione **GitHub Actions**
+2. Em **Source**, selecione **Deploy from a branch**
+3. Selecione a branch **gh-pages** 
+4. Selecione a pasta **/ (root)**
 3. Salve as configurações
+
+**Importante**: Se a opção **gh-pages** não aparecer, execute o workflow uma vez primeiro indo em **Actions** → **Deploy to GitHub Pages** → **Run workflow**.
 
 ## 📤 Deploy da Aplicação
 
@@ -94,11 +98,14 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ### 3. Fazer o Deploy
 
 ```bash
+# Primeiro, certifique-se de que o repositório está atualizado
+git pull origin main
+
 # Adicionar arquivos ao Git
 git add .
 
 # Fazer commit
-git commit -m "Initial commit - Landing page do evento"
+git commit -m "Fix: Configuração correta para GitHub Pages"
 
 # Enviar para o GitHub
 git push origin main
@@ -108,8 +115,11 @@ git push origin main
 
 1. Vá na aba **Actions** do seu repositório
 2. Aguarde o workflow terminar (ícone verde ✅)
-3. Acesse **Settings** → **Pages** para ver a URL do site
-4. Sua aplicação estará disponível em: `https://seuusuario.github.io/nome-do-repositorio`
+3. Após o workflow terminar, vá em **Settings** → **Pages**
+4. Configure **Source** como **Deploy from a branch** e selecione **gh-pages**
+5. Sua aplicação estará disponível em: `https://gabrielsadrc.github.io/reset-corporativo`
+
+**Nota**: Pode levar alguns minutos para o site ficar disponível após o primeiro deploy.
 
 ## 🔒 Segurança e Boas Práticas
 
@@ -154,9 +164,10 @@ O GitHub Actions automaticamente fará o rebuild e deploy!
 - Teste as credenciais no dashboard do Supabase
 
 ### Erro: "404 Page Not Found"
-- Verifique se o GitHub Pages está habilitado
-- Confirme se o workflow do GitHub Actions executou com sucesso
-- Aguarde alguns minutos para propagação
+- Verifique se o GitHub Pages está configurado para usar a branch **gh-pages**
+- Confirme se o workflow do GitHub Actions executou com sucesso (ícone verde)
+- Aguarde alguns minutos para propagação (pode levar até 10 minutos)
+- Verifique se a URL está correta: `https://gabrielsadrc.github.io/reset-corporativo`
 
 ### Erro: "Environment variables not found"
 - Verifique se os Secrets estão configurados corretamente no GitHub
@@ -176,6 +187,7 @@ Se encontrar problemas:
 Sua landing page de evento está agora online e segura! 
 
 **URL do seu site**: `https://seuusuario.github.io/nome-do-repositorio`
+**URL do seu site**: `https://gabrielsadrc.github.io/reset-corporativo`
 
 ### Próximos Passos:
 - [ ] Testar todas as funcionalidades online
