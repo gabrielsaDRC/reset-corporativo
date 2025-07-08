@@ -43,11 +43,11 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-white rounded-lg shadow-xl p-8">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Shield className="w-8 h-8 text-purple-600" />
+          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#FEF3E2' }}>
+            <Shield className="w-8 h-8" style={{ color: '#EA9504' }} />
           </div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">
             {isFirstUser ? 'Criar Conta Administrativa' : 'Acesso Administrativo'}
@@ -61,12 +61,12 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
         </div>
 
         {isFirstUser && (
-          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: '#FEF3E2', borderColor: '#F3E8D1', border: '1px solid' }}>
             <div className="flex items-center gap-2 mb-2">
-              <Shield className="w-4 h-4 text-blue-600" />
-              <p className="text-blue-800 font-medium text-sm">Primeira configuração</p>
+              <Shield className="w-4 h-4" style={{ color: '#EA9504' }} />
+              <p className="font-medium text-sm" style={{ color: '#92400E' }}>Primeira configuração</p>
             </div>
-            <p className="text-blue-700 text-sm">
+            <p className="text-sm" style={{ color: '#A16207' }}>
               Como não existe nenhuma conta de administrador, você pode criar a primeira conta agora. 
               Use um email e senha seguros que você lembrará.
             </p>
@@ -85,7 +85,8 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
                 value={credentials.email}
                 onChange={(e) => setCredentials(prev => ({ ...prev, email: e.target.value }))}
                 required
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                style={{ '--tw-ring-color': '#EA9504' } as React.CSSProperties}
                 placeholder="Digite seu e-mail"
               />
             </div>
@@ -102,7 +103,8 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
                 value={credentials.password}
                 onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
                 required
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                style={{ '--tw-ring-color': '#EA9504' } as React.CSSProperties}
                 placeholder="Digite sua senha"
               />
             </div>
@@ -118,7 +120,8 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full text-white py-3 px-4 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
+            style={{ background: 'linear-gradient(to right, #EA9504, #F59E0B)' }}
           >
             {isLoading 
               ? (isFirstUser ? 'Criando conta...' : 'Entrando...') 
@@ -142,7 +145,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
         )}
 
         {isFirstUser && (
-          <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <div className="mt-6 p-4 rounded-lg" style={{ backgroundColor: '#FFFBEB', borderColor: '#FDE68A', border: '1px solid' }}>
           <p className="text-sm text-gray-600 mb-2">
             <strong>⚠️ Importante:</strong>
           </p>

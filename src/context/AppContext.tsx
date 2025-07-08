@@ -140,6 +140,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         } catch (authError) {
           console.error('Erro ao verificar primeiro usuário:', authError);
         }
+
+        // Adicionar um pequeno delay para garantir que tudo carregou
+        await new Promise(resolve => setTimeout(resolve, 800));
       } catch (err) {
         console.error('Erro ao carregar dados iniciais:', err);
         setError('Erro ao conectar com o banco de dados.');
