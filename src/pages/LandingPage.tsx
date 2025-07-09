@@ -103,7 +103,7 @@ export const LandingPage: React.FC = () => {
                     </ul>
                     
                     <Link
-                      to="/inscricao-gratuita"
+                      to="/convidado"
                       className="w-full text-white py-4 px-6 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 group hover:opacity-90"
                       style={freeButtonGradient.style}
                     >
@@ -176,7 +176,7 @@ export const LandingPage: React.FC = () => {
                     </ul>
                     
                     <Link
-                      to="/inscricao-premium"
+                      to="/premium"
                       className="w-full text-white py-4 px-6 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 group hover:opacity-90"
                       style={premiumButtonGradient.style}
                     >

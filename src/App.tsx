@@ -22,8 +22,8 @@ const AppRoutes: React.FC = () => {
       <Route path="/" element={<LandingPage />} />
       
       {/* Páginas de inscrição específicas */}
-      <Route path="/inscricao-gratuita" element={<RegistrationPage type="gratuita" />} />
-      <Route path="/inscricao-premium" element={<RegistrationPage type="paga" />} />
+      <Route path="/convidado" element={<RegistrationPage type="gratuita" />} />
+      <Route path="/premium" element={<RegistrationPage type="paga" />} />
       
       {/* Área administrativa (endpoint oculto) */}
       <Route path="/administrativo" element={<AdminPage />} />

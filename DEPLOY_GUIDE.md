@@ -114,8 +114,8 @@ nslookup www.resetcorporativo.com
 
 ### 📱 **Páginas disponíveis:**
 - `/` - Página principal
-- `/inscricao-gratuita` - Inscrição gratuita
-- `/inscricao-premium` - Inscrição premium
+- `/convidado` - Inscrição gratuita
+- `/premium` - Inscrição premium
 - `/administrativo` - Painel administrativo
 
 ## 🔧 **Solução para Roteamento SPA**
