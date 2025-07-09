@@ -755,8 +755,7 @@ export const EventEditor: React.FC = () => {
             {isEditing && (
               <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <p className="text-yellow-800 text-sm">
-                  <strong>⚠️ Importante:</strong> As mudanças de cor serão aplicadas imediatamente após salvar. 
-                  Certifique-se de escolher cores que tenham boa legibilidade e contraste.
+                  <strong>⚠️ Importante:</strong> As mudanças de cor serão aplicadas imediatamente após salvar. Para cores personalizadas (hex), certifique-se de usar o formato correto (#000000) e que tenham boa legibilidade e contraste.
                 </p>
               </div>
             )}

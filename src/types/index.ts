@@ -6,13 +6,13 @@ export interface Participant {
   telefone: string;
   dataNascimento?: string;
   genero?: string;
+  nomeEmpresa?: string;
+  faturamento?: string;
+  areaAtuacao?: string;
   cidade: string;
   estado: string;
   tipoInscricao: 'gratuita' | 'paga';
   statusPagamento: 'pendente' | 'aprovado' | 'cancelado';
-  nomeEmpresa?: string;
-  faturamento?: string;
-  areaAtuacao?: string;
   dataInscricao: string;
   confirmadoEvento: boolean;
   isUpdating?: boolean; // Para controle de estado de carregamento

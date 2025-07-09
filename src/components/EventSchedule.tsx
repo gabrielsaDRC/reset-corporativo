@@ -5,23 +5,9 @@ import { useColors } from '../hooks/useColors';
 
 export const EventSchedule: React.FC = () => {
   const { eventData } = useApp();
-  const { getPrimaryClasses } = useColors();
+  const { getPrimaryClasses, getColorValue } = useColors();
   
-  // Obter cor primária personalizada
-  const colorMap: Record<string, string> = {
-    purple: '#9333ea',
-    blue: '#2563eb',
-    orange: '#ea580c',
-    green: '#16a34a',
-    red: '#dc2626',
-    yellow: '#ca8a04',
-    indigo: '#4f46e5',
-    pink: '#db2777',
-    teal: '#0d9488'
-  };
-  
-  const primaryColor = eventData.cores.primaria;
-  const customIconColor = primaryColor.startsWith('#') ? primaryColor : (colorMap[primaryColor] || colorMap.purple);
+  const customIconColor = getColorValue(eventData.cores.primaria);
 
   return (
     <section className="py-16 bg-white">

@@ -14,7 +14,7 @@ interface RegistrationPageProps {
 
 export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
   const { addParticipant, eventData, error } = useApp();
-  const { getFreeButtonGradient, getPremiumButtonGradient } = useColors();
+  const { getFreeButtonGradient, getPremiumButtonGradient, getColorValue } = useColors();
   const [formData, setFormData] = useState({
     nome: '',
     cpf: '',
@@ -38,21 +38,8 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
   
   const buttonGradient = type === 'gratuita' ? getFreeButtonGradient() : getPremiumButtonGradient();
   
-  // Obter cores personalizadas
-  const colorMap: Record<string, string> = {
-    purple: '#9333ea',
-    blue: '#2563eb',
-    orange: '#ea580c',
-    green: '#16a34a',
-    red: '#dc2626',
-    yellow: '#ca8a04',
-    indigo: '#4f46e5',
-    pink: '#db2777',
-    teal: '#0d9488'
-  };
-  
   const currentColor = type === 'gratuita' ? eventData.cores.gratuita : eventData.cores.premium;
-  const customColor = currentColor.startsWith('#') ? currentColor : (colorMap[currentColor] || colorMap.purple);
+  const customColor = getColorValue(currentColor);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,7 +76,9 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
         });
       }, 3000);
     } catch (err) {
-      setFormError('Erro ao realizar inscrição. Tente novamente.');
+      // Mostrar a mensagem de erro específica do serviço
+      const errorMessage = err instanceof Error ? err.message : 'Erro ao realizar inscrição. Tente novamente.';
+      setFormError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -376,6 +365,42 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Data de Nascimento
+                    </label>
+                    <div className="relative">
+                      <Calendar className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                      <input
+                        type="date"
+                        name="dataNascimento"
+                        value={formData.dataNascimento}
+                        onChange={handleChange}
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                        style={{ '--tw-ring-color': customColor } as React.CSSProperties}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Gênero
+                    </label>
+                    <select
+                      name="genero"
+                      value={formData.genero}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                      style={{ '--tw-ring-color': customColor } as React.CSSProperties}
+                    >
+                      <option value="">Selecione</option>
+                      <option value="masculino">Masculino</option>
+                      <option value="feminino">Feminino</option>
+                      <option value="outro">Outro</option>
+                      <option value="nao-informar">Prefiro não informar</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Nome da Empresa
                     </label>
                     <div className="relative">
@@ -454,42 +479,6 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
                         <option value="outros">Outros</option>
                       </select>
                     </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Data de Nascimento
-                    </label>
-                    <div className="relative">
-                      <Calendar className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                      <input
-                        type="date"
-                        name="dataNascimento"
-                        value={formData.dataNascimento}
-                        onChange={handleChange}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
-                        style={{ '--tw-ring-color': customColor } as React.CSSProperties}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Gênero
-                    </label>
-                    <select
-                      name="genero"
-                      value={formData.genero}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
-                      style={{ '--tw-ring-color': customColor } as React.CSSProperties}
-                    >
-                      <option value="">Selecione</option>
-                      <option value="masculino">Masculino</option>
-                      <option value="feminino">Feminino</option>
-                      <option value="outro">Outro</option>
-                      <option value="nao-informar">Prefiro não informar</option>
-                    </select>
                   </div>
 
                   <div>

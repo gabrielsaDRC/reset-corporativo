@@ -9,8 +9,18 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ isAdminPage = false }) => {
   const { eventData, isAdmin, setIsAdmin } = useApp();
-  const { getHeaderGradient } = useColors();
+  const { getHeaderGradient, getColorValue } = useColors();
   const headerGradient = getHeaderGradient();
+
+  // Debug: Log das cores para verificar se estão sendo carregadas corretamente
+  React.useEffect(() => {
+    console.log('Header - Cores do evento:', eventData.cores);
+    console.log('Header - Cor primária:', eventData.cores.primaria);
+    console.log('Header - Cor secundária:', eventData.cores.secundaria);
+    console.log('Header - Valor primário:', getColorValue(eventData.cores.primaria));
+    console.log('Header - Valor secundário:', getColorValue(eventData.cores.secundaria));
+    console.log('Header - Gradiente:', headerGradient);
+  }, [eventData.cores, getColorValue, headerGradient]);
 
   const handleLogout = () => {
     setIsAdmin(false);
@@ -23,6 +33,20 @@ export const Header: React.FC<HeaderProps> = ({ isAdminPage = false }) => {
         <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
           <div className="text-center lg:text-left">
             <h1 className="text-xl lg:text-3xl font-bold mb-2 leading-tight">{eventData.nome}</h1>
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-4 text-sm">
+              <div className="flex items-center gap-1">
+                <Calendar className="w-4 h-4" />
+                <span>{eventData.data}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Clock className="w-4 h-4" />
+                <span>{eventData.horario}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <MapPin className="w-4 h-4" />
+                <span className="break-words">{eventData.local}</span>
+              </div>
+            </div>
           </div>
           
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">

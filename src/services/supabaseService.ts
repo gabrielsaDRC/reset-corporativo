@@ -52,6 +52,23 @@ export const participantService = {
   },
 
   async create(participant: Omit<Participant, 'id' | 'dataInscricao'>): Promise<Participant> {
+    // Verificar se já existe um participante com o mesmo CPF
+    const { data: existingParticipant, error: checkError } = await supabase
+      .from('participants')
+      .select('id, nome, email')
+      .eq('cpf', participant.cpf)
+      .single();
+
+    if (checkError && checkError.code !== 'PGRST116') {
+      // PGRST116 é o código para "nenhum resultado encontrado", que é o que queremos
+      console.error('Erro ao verificar CPF duplicado:', checkError);
+      throw new Error('Erro ao verificar dados. Tente novamente.');
+    }
+
+    if (existingParticipant) {
+      throw new Error(`Este CPF já está cadastrado no evento. Participante: ${existingParticipant.nome} (${existingParticipant.email})`);
+    }
+
     const { data, error } = await supabase
       .from('participants')
       .insert({

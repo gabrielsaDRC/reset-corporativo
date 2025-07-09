@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Check, Palette, X } from 'lucide-react';
-import { availableColors } from '../utils/colorUtils';
 
 interface ColorPickerProps {
   label: string;
@@ -99,7 +98,8 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   
   // Inicializar com a cor atual
   useEffect(() => {
-    const currentColorHex = availableColors.find(c => c.name === value)?.hex || '#9333ea';
+    // Se o valor for um hex válido, usar diretamente
+    const currentColorHex = value.startsWith('#') ? value : '#9333ea';
     setCustomColor(currentColorHex);
     
     const rgb = hexToRgb(currentColorHex);
@@ -141,19 +141,13 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   };
 
   const handleCustomColorApply = () => {
-    // Encontrar a cor mais próxima ou usar 'custom'
-    const closestColor = availableColors.find(c => c.hex.toLowerCase() === customColor.toLowerCase());
-    if (closestColor) {
-      onChange(closestColor.name);
-    } else {
-      // Para cores customizadas, vamos usar o valor hex diretamente
-      onChange(customColor);
-    }
+    // Sempre usar o valor hex para cores customizadas
+    onChange(customColor);
     setShowAdvanced(false);
   };
 
-  const currentColorData = availableColors.find(c => c.name === value);
-  const displayColor = currentColorData?.hex || value;
+  // Garantir que o valor exibido seja sempre um hex válido
+  const displayColor = value.startsWith('#') ? value : '#9333ea';
 
   return (
     <div>
@@ -161,53 +155,30 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
         {label}
       </label>
       
-      {/* Cores Predefinidas */}
-      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-4">
-        {availableColors.map((color) => (
-          <button
-            key={color.name}
-            type="button"
-            onClick={() => onChange(color.name)}
-            disabled={disabled}
-            className={`relative w-12 h-12 rounded-lg border-2 transition-all duration-200 ${
-              value === color.name
-                ? 'border-gray-800 scale-110 shadow-lg'
-                : 'border-gray-300 hover:border-gray-400 hover:scale-105'
-            } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-            style={{ backgroundColor: color.hex }}
-            title={color.label}
-          >
-            {value === color.name && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Check className="w-5 h-5 text-white drop-shadow-lg" />
-              </div>
-            )}
-          </button>
-        ))}
-      </div>
-
-      {/* Botão para Cor Personalizada */}
-      <div className="flex items-center gap-3">
+      {/* Preview da Cor Atual e Botão para Abrir Seletor */}
+      <div className="flex items-center gap-3 mb-4">
         <button
           type="button"
           onClick={() => setShowAdvanced(!showAdvanced)}
           disabled={disabled}
-          className={`flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg transition-colors ${
+          className={`flex items-center gap-3 px-4 py-3 border border-gray-300 rounded-lg transition-colors ${
             disabled 
               ? 'opacity-50 cursor-not-allowed' 
               : 'hover:bg-gray-50 cursor-pointer'
           }`}
         >
-          <Palette className="w-4 h-4" />
-          <span className="text-sm">Cor Personalizada</span>
-        </button>
-        
-        {/* Preview da Cor Atual */}
-        <div className="flex items-center gap-2">
           <div 
-            className="w-8 h-8 rounded border-2 border-gray-300"
+            className="w-8 h-8 rounded border-2 border-gray-300 flex-shrink-0"
             style={{ backgroundColor: displayColor }}
           />
+          <div className="flex items-center gap-2">
+            <Palette className="w-4 h-4" />
+            <span className="text-sm">Escolher Cor</span>
+          </div>
+        </button>
+        
+        {/* Código da Cor */}
+        <div className="flex items-center gap-2">
           <span className="text-sm text-gray-600 font-mono">
             {displayColor.toUpperCase()}
           </span>
@@ -317,8 +288,8 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
       )}
 
       <p className="text-xs text-gray-500 mt-2">
-        Cor selecionada: <span className="font-medium">
-          {currentColorData?.label || 'Personalizada'}
+        Cor selecionada: <span className="font-medium font-mono">
+          {displayColor.toUpperCase()}
         </span>
       </p>
     </div>

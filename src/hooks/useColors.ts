@@ -43,22 +43,31 @@ export const useColors = () => {
 
   // Função para obter gradiente do header
   const getHeaderGradient = () => {
-    // Usar estilos inline para garantir que as cores funcionem
-    const colorMap: Record<string, string> = {
-      purple: '#9333ea',
-      blue: '#2563eb',
-      orange: '#ea580c',
-      green: '#16a34a',
-      red: '#dc2626',
-      yellow: '#ca8a04',
-      indigo: '#4f46e5',
-      pink: '#db2777',
-      teal: '#0d9488'
+    // Função centralizada para obter valor da cor
+    const getColorValue = (colorName: string): string => {
+      // Se a cor começar com #, é uma cor personalizada
+      if (colorName.startsWith('#')) {
+        return colorName;
+      }
+      
+      // Caso contrário, usar o mapeamento padrão
+      const colorMap: Record<string, string> = {
+        purple: '#9333ea',
+        blue: '#2563eb',
+        orange: '#ea580c',
+        green: '#16a34a',
+        red: '#dc2626',
+        yellow: '#ca8a04',
+        indigo: '#4f46e5',
+        pink: '#db2777',
+        teal: '#0d9488'
+      };
+      
+      return colorMap[colorName] || colorMap.purple;
     };
     
-    // Se a cor começar com #, é uma cor personalizada
-    const color1 = cores.primaria.startsWith('#') ? cores.primaria : (colorMap[cores.primaria] || colorMap.purple);
-    const color2 = cores.secundaria.startsWith('#') ? cores.secundaria : (colorMap[cores.secundaria] || colorMap.blue);
+    const color1 = getColorValue(cores.primaria || 'purple');
+    const color2 = getColorValue(cores.secundaria || 'blue');
     
     return {
       background: `linear-gradient(to right, ${color1}, ${color2})`,
@@ -68,19 +77,27 @@ export const useColors = () => {
 
   // Função para obter gradiente de botão gratuito
   const getFreeButtonGradient = () => {
-    const colorMap: Record<string, string> = {
-      purple: '#9333ea',
-      blue: '#2563eb',
-      orange: '#ea580c',
-      green: '#16a34a',
-      red: '#dc2626',
-      yellow: '#ca8a04',
-      indigo: '#4f46e5',
-      pink: '#db2777',
-      teal: '#0d9488'
+    const getColorValue = (colorName: string): string => {
+      if (colorName.startsWith('#')) {
+        return colorName;
+      }
+      
+      const colorMap: Record<string, string> = {
+        purple: '#9333ea',
+        blue: '#2563eb',
+        orange: '#ea580c',
+        green: '#16a34a',
+        red: '#dc2626',
+        yellow: '#ca8a04',
+        indigo: '#4f46e5',
+        pink: '#db2777',
+        teal: '#0d9488'
+      };
+      
+      return colorMap[colorName] || colorMap.purple;
     };
     
-    const color = cores.gratuita.startsWith('#') ? cores.gratuita : (colorMap[cores.gratuita] || colorMap.purple);
+    const color = getColorValue(cores.gratuita || 'purple');
     
     return {
       background: `linear-gradient(to right, ${color}, ${color})`,
@@ -90,6 +107,42 @@ export const useColors = () => {
 
   // Função para obter gradiente de botão premium
   const getPremiumButtonGradient = () => {
+    const getColorValue = (colorName: string): string => {
+      if (colorName.startsWith('#')) {
+        return colorName;
+      }
+      
+      const colorMap: Record<string, string> = {
+        purple: '#9333ea',
+        blue: '#2563eb',
+        orange: '#ea580c',
+        green: '#16a34a',
+        red: '#dc2626',
+        yellow: '#ca8a04',
+        indigo: '#4f46e5',
+        pink: '#db2777',
+        teal: '#0d9488'
+      };
+      
+      return colorMap[colorName] || colorMap.orange;
+    };
+    
+    const color = getColorValue(cores.premium || 'orange');
+    
+    return {
+      background: `linear-gradient(to right, ${color}, ${color})`,
+      style: { background: `linear-gradient(to right, ${color}, ${color})` }
+    };
+  };
+
+  // Função centralizada para obter valor de cor (reutilizável)
+  const getColorValue = (colorName: string): string => {
+    if (!colorName) return '#9333ea'; // fallback para purple
+    
+    if (colorName.startsWith('#')) {
+      return colorName;
+    }
+    
     const colorMap: Record<string, string> = {
       purple: '#9333ea',
       blue: '#2563eb',
@@ -102,16 +155,12 @@ export const useColors = () => {
       teal: '#0d9488'
     };
     
-    const color = cores.premium.startsWith('#') ? cores.premium : (colorMap[cores.premium] || colorMap.orange);
-    
-    return {
-      background: `linear-gradient(to right, ${color}, ${color})`,
-      style: { background: `linear-gradient(to right, ${color}, ${color})` }
-    };
+    return colorMap[colorName] || '#9333ea';
   };
 
   return {
     cores,
+    getColorValue,
     getPrimaryClasses,
     getSecondaryClasses,
     getFreeClasses,

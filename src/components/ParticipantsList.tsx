@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, Download, Edit2, Trash2, CheckCircle, XCircle, AlertTriangle, Building, DollarSign, Briefcase } from 'lucide-react';
+import { Search, Filter, Download, Edit2, Trash2, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { Participant } from '../types';
 import { ConfirmationModal } from './ConfirmationModal';
@@ -44,9 +44,7 @@ export const ParticipantsList: React.FC = () => {
     ];
     
     const csvData = filteredParticipants.map(p => [
-      p.nome, p.cpf, p.email, p.telefone, p.nomeEmpresa || 'Não informado', 
-      p.faturamento || 'Não informado', p.areaAtuacao || 'Não informado', 
-      p.cidade, p.estado, 
+      p.nome, p.cpf, p.email, p.telefone, p.nomeEmpresa || '', p.faturamento || '', p.areaAtuacao || '', p.cidade, p.estado, 
       p.tipoInscricao, p.statusPagamento, 
       new Date(p.dataInscricao).toLocaleString(),
       p.confirmadoEvento ? 'Sim' : 'Não'
@@ -204,12 +202,6 @@ export const ParticipantsList: React.FC = () => {
                   <h3 className="font-medium text-gray-800">{participant.nome}</h3>
                   <p className="text-sm text-gray-600">{participant.email}</p>
                   <p className="text-sm text-gray-600">{participant.telefone}</p>
-                  {participant.nomeEmpresa && (
-                    <p className="text-sm text-gray-600 flex items-center gap-1">
-                      <Building className="w-3 h-3" />
-                      {participant.nomeEmpresa}
-                    </p>
-                  )}
                 </div>
                 <div className="flex items-center gap-2">
                   <button
@@ -253,22 +245,6 @@ export const ParticipantsList: React.FC = () => {
               
               <div className="text-xs text-gray-500">
                 Inscrito em: {new Date(participant.dataInscricao).toLocaleDateString()}
-                {(participant.faturamento || participant.areaAtuacao) && (
-                  <div className="mt-1 flex flex-wrap gap-2">
-                    {participant.faturamento && (
-                      <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
-                        <DollarSign className="w-3 h-3" />
-                        {participant.faturamento}
-                      </span>
-                    )}
-                    {participant.areaAtuacao && (
-                      <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">
-                        <Briefcase className="w-3 h-3" />
-                        {participant.areaAtuacao}
-                      </span>
-                    )}
-                  </div>
-                )}
               </div>
             </div>
           ))}
@@ -285,9 +261,8 @@ export const ParticipantsList: React.FC = () => {
           <table className="w-full min-w-full">
             <thead>
               <tr className="bg-gray-50">
-                <th className="text-left py-3 px-4 font-semibold text-gray-700 min-w-[200px]">Nome/Empresa</th>
+                <th className="text-left py-3 px-4 font-semibold text-gray-700 min-w-[200px]">Nome</th>
                 <th className="text-left py-3 px-4 font-semibold text-gray-700 min-w-[200px]">Contato</th>
-                <th className="text-left py-3 px-4 font-semibold text-gray-700 min-w-[180px]">Empresa</th>
                 <th className="text-left py-3 px-4 font-semibold text-gray-700 min-w-[150px]">Localização</th>
                 <th className="text-left py-3 px-4 font-semibold text-gray-700 min-w-[100px]">Tipo</th>
                 <th className="text-left py-3 px-4 font-semibold text-gray-700 min-w-[120px]">Data Inscrição</th>
@@ -312,37 +287,12 @@ export const ParticipantsList: React.FC = () => {
                     <div>
                       <p className="font-medium text-gray-800">{participant.nome}</p>
                       <p className="text-sm text-gray-600">{participant.cpf}</p>
-                      {participant.nomeEmpresa && (
-                        <p className="text-sm text-blue-600 flex items-center gap-1 mt-1">
-                          <Building className="w-3 h-3" />
-                          {participant.nomeEmpresa}
-                        </p>
-                      )}
                     </div>
                   </td>
                   <td className="py-4 px-4">
                     <div>
                       <p className="text-sm text-gray-800">{participant.email}</p>
                       <p className="text-sm text-gray-600">{participant.telefone}</p>
-                    </div>
-                  </td>
-                  <td className="py-4 px-4">
-                    <div className="space-y-1">
-                      {participant.faturamento && (
-                        <div className="flex items-center gap-1 text-sm text-gray-600">
-                          <DollarSign className="w-3 h-3" />
-                          <span>{participant.faturamento}</span>
-                        </div>
-                      )}
-                      {participant.areaAtuacao && (
-                        <div className="flex items-center gap-1 text-sm text-gray-600">
-                          <Briefcase className="w-3 h-3" />
-                          <span>{participant.areaAtuacao}</span>
-                        </div>
-                      )}
-                      {!participant.faturamento && !participant.areaAtuacao && (
-                        <span className="text-sm text-gray-400">Não informado</span>
-                      )}
                     </div>
                   </td>
                   <td className="py-4 px-4">

@@ -10,10 +10,17 @@ import { useColors } from '../hooks/useColors';
 
 export const LandingPage: React.FC = () => {
   const { eventData } = useApp();
-  const { getFreeButtonGradient, getPremiumButtonGradient } = useColors();
+  const { getFreeButtonGradient, getPremiumButtonGradient, getColorValue } = useColors();
   
   const freeButtonGradient = getFreeButtonGradient();
   const premiumButtonGradient = getPremiumButtonGradient();
+
+  // Debug: Log das cores para verificar se estão sendo aplicadas
+  React.useEffect(() => {
+    console.log('LandingPage - Cores do evento:', eventData.cores);
+    console.log('LandingPage - Gradiente gratuito:', freeButtonGradient);
+    console.log('LandingPage - Gradiente premium:', premiumButtonGradient);
+  }, [eventData.cores, freeButtonGradient, premiumButtonGradient]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -41,28 +48,55 @@ export const LandingPage: React.FC = () => {
             }`}>
               {/* Inscrição Gratuita */}
               {eventData.inscricaoGratuita.disponivel && (
-                <div className={`p-6 lg:p-8 bg-gradient-to-br from-${eventData.cores.gratuita}-50 to-${eventData.cores.gratuita}-100 rounded-xl border-2 border-${eventData.cores.gratuita}-200 relative overflow-hidden`}>
+                <div 
+                  className="p-6 lg:p-8 rounded-xl border-2 relative overflow-hidden"
+                  style={{
+                    background: `linear-gradient(to bottom right, ${getColorValue(eventData.cores.gratuita)}10, ${getColorValue(eventData.cores.gratuita)}20)`,
+                    borderColor: `${getColorValue(eventData.cores.gratuita)}40`
+                  }}
+                >
                   <div className="relative z-10">
                     <div className="flex items-center gap-3 mb-6">
-                      <div className={`w-12 h-12 bg-${eventData.cores.gratuita}-600 rounded-full flex items-center justify-center`}>
+                      <div 
+                        className="w-12 h-12 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: getColorValue(eventData.cores.gratuita) }}
+                      >
                         <Gift className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <h3 className={`text-xl lg:text-2xl font-bold text-${eventData.cores.gratuita}-800`}>
+                        <h3 
+                          className="text-xl lg:text-2xl font-bold"
+                          style={{ color: `${getColorValue(eventData.cores.gratuita)}DD` }}
+                        >
                           {eventData.inscricaoGratuita.titulo}
                         </h3>
-                        <p className={`text-${eventData.cores.gratuita}-600 font-semibold`}>Gratuito</p>
+                        <p 
+                          className="font-semibold"
+                          style={{ color: getColorValue(eventData.cores.gratuita) }}
+                        >
+                          Gratuito
+                        </p>
                       </div>
                     </div>
                     
-                    <p className={`text-${eventData.cores.gratuita}-700 mb-6 text-base lg:text-lg`}>
+                    <p 
+                      className="mb-6 text-base lg:text-lg"
+                      style={{ color: `${getColorValue(eventData.cores.gratuita)}CC` }}
+                    >
                       {eventData.inscricaoGratuita.descricao}
                     </p>
                     
                     <ul className="space-y-3 mb-8">
                       {eventData.inscricaoGratuita.beneficios.map((benefit, index) => (
-                        <li key={index} className={`flex items-start gap-2 text-${eventData.cores.gratuita}-700`}>
-                          <div className={`w-2 h-2 bg-${eventData.cores.gratuita}-600 rounded-full mt-2 flex-shrink-0`}></div>
+                        <li 
+                          key={index} 
+                          className="flex items-start gap-2"
+                          style={{ color: `${getColorValue(eventData.cores.gratuita)}CC` }}
+                        >
+                          <div 
+                            className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+                            style={{ backgroundColor: getColorValue(eventData.cores.gratuita) }}
+                          ></div>
                           <span>{benefit}</span>
                         </li>
                       ))}
@@ -78,36 +112,64 @@ export const LandingPage: React.FC = () => {
                     </Link>
                   </div>
                   
-                  <div className={`absolute top-0 right-0 w-32 h-32 bg-${eventData.cores.gratuita}-200 rounded-full -translate-y-16 translate-x-16 opacity-50`}></div>
+                  <div 
+                    className="absolute top-0 right-0 w-32 h-32 rounded-full -translate-y-16 translate-x-16 opacity-50"
+                    style={{ backgroundColor: `${getColorValue(eventData.cores.gratuita)}40` }}
+                  ></div>
                 </div>
               )}
 
               {/* Inscrição Premium */}
               {eventData.inscricaoPaga.disponivel && (
-                <div className={`p-6 lg:p-8 bg-gradient-to-br from-${eventData.cores.premium}-50 to-${eventData.cores.premium}-100 rounded-xl border-2 border-${eventData.cores.premium}-200 relative overflow-hidden`}>
+                <div 
+                  className="p-6 lg:p-8 rounded-xl border-2 relative overflow-hidden"
+                  style={{
+                    background: `linear-gradient(to bottom right, ${getColorValue(eventData.cores.premium)}10, ${getColorValue(eventData.cores.premium)}20)`,
+                    borderColor: `${getColorValue(eventData.cores.premium)}40`
+                  }}
+                >
                   <div className="relative z-10">
                     <div className="flex items-center gap-3 mb-6">
-                      <div className={`w-12 h-12 bg-${eventData.cores.premium}-600 rounded-full flex items-center justify-center`}>
+                      <div 
+                        className="w-12 h-12 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: getColorValue(eventData.cores.premium) }}
+                      >
                         <CreditCard className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <h3 className={`text-xl lg:text-2xl font-bold text-${eventData.cores.premium}-800`}>
+                        <h3 
+                          className="text-xl lg:text-2xl font-bold"
+                          style={{ color: `${getColorValue(eventData.cores.premium)}DD` }}
+                        >
                           {eventData.inscricaoPaga.titulo}
                         </h3>
-                        <p className={`text-${eventData.cores.premium}-600 font-bold text-lg`}>
+                        <p 
+                          className="font-bold text-lg"
+                          style={{ color: getColorValue(eventData.cores.premium) }}
+                        >
                           R$ {eventData.inscricaoPaga.preco.toFixed(2)}
                         </p>
                       </div>
                     </div>
                     
-                    <p className={`text-${eventData.cores.premium}-700 mb-6 text-base lg:text-lg`}>
+                    <p 
+                      className="mb-6 text-base lg:text-lg"
+                      style={{ color: `${getColorValue(eventData.cores.premium)}CC` }}
+                    >
                       {eventData.inscricaoPaga.descricao}
                     </p>
                     
                     <ul className="space-y-3 mb-8">
                       {eventData.inscricaoPaga.beneficios.map((benefit, index) => (
-                        <li key={index} className={`flex items-start gap-2 text-${eventData.cores.premium}-700`}>
-                          <div className={`w-2 h-2 bg-${eventData.cores.premium}-600 rounded-full mt-2 flex-shrink-0`}></div>
+                        <li 
+                          key={index} 
+                          className="flex items-start gap-2"
+                          style={{ color: `${getColorValue(eventData.cores.premium)}CC` }}
+                        >
+                          <div 
+                            className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+                            style={{ backgroundColor: getColorValue(eventData.cores.premium) }}
+                          ></div>
                           <span>{benefit}</span>
                         </li>
                       ))}
@@ -123,7 +185,10 @@ export const LandingPage: React.FC = () => {
                     </Link>
                   </div>
                   
-                  <div className={`absolute top-0 right-0 w-32 h-32 bg-${eventData.cores.premium}-200 rounded-full -translate-y-16 translate-x-16 opacity-50`}></div>
+                  <div 
+                    className="absolute top-0 right-0 w-32 h-32 rounded-full -translate-y-16 translate-x-16 opacity-50"
+                    style={{ backgroundColor: `${getColorValue(eventData.cores.premium)}40` }}
+                  ></div>
                 </div>
               )}
             </div>

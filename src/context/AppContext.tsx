@@ -158,9 +158,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     try {
       setError(null);
       console.log('AppContext: Atualizando dados do evento:', newEventData);
+      console.log('AppContext: Cores sendo salvas:', newEventData.cores);
       const updatedEventData = await eventService.update(newEventData);
       setEventData(updatedEventData);
-      console.log('AppContext: Dados do evento atualizados com sucesso');
+      console.log('AppContext: Dados do evento atualizados com sucesso:', updatedEventData);
+      console.log('AppContext: Cores salvas:', updatedEventData.cores);
     } catch (err) {
       console.error('Erro ao atualizar configurações do evento:', err);
       setError('Erro ao salvar configurações do evento');
@@ -175,7 +177,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       setParticipants(prev => [newParticipant, ...prev]);
     } catch (err) {
       console.error('Erro ao adicionar participante:', err);
-      setError('Erro ao realizar inscrição');
+      // Capturar a mensagem específica do erro ou usar uma mensagem genérica
+      const errorMessage = err instanceof Error ? err.message : 'Erro ao realizar inscrição';
+      setError(errorMessage);
       throw err;
     }
   };
