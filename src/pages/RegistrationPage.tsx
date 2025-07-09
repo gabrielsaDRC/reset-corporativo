@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User, Mail, Phone, MapPin, Calendar, Check, AlertCircle, Gift, CreditCard, ArrowLeft, Building, DollarSign, Briefcase } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Calendar, Check, AlertCircle, Gift, CreditCard, ArrowLeft, Building, DollarSign, Briefcase, ArrowRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { Header } from '../components/Header';
 import { EventPresentation } from '../components/EventPresentation';
@@ -57,7 +57,14 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
 
       setSuccess(true);
       
-      // Reset form after success
+      // Se for inscrição paga, redirecionar para o link de pagamento após 2 segundos
+      if (type === 'paga' && eventData.linkPagamento) {
+        setTimeout(() => {
+          window.open(eventData.linkPagamento, '_blank');
+        }, 2000);
+      }
+      
+      // Reset form after success (mais tempo para inscrição paga)
       setTimeout(() => {
         setSuccess(false);
         setFormData({
@@ -74,7 +81,7 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
           estado: '',
           tipoInscricao: type
         });
-      }, 3000);
+      }, type === 'paga' ? 5000 : 3000);
     } catch (err) {
       // Mostrar a mensagem de erro específica do serviço
       const errorMessage = err instanceof Error ? err.message : 'Erro ao realizar inscrição. Tente novamente.';
@@ -139,6 +146,36 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
             <p className="text-lg text-gray-600 mb-6">
               Sua inscrição foi confirmada com sucesso. Você receberá um e-mail de confirmação em breve.
             </p>
+            
+            {type === 'paga' && eventData.linkPagamento && (
+              <div 
+                className="p-4 rounded-lg mb-6"
+                style={{ backgroundColor: `${customColor}10`, borderColor: `${customColor}40`, border: '2px solid' }}
+              >
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <CreditCard className="w-5 h-5" style={{ color: customColor }} />
+                  <h4 className="font-semibold" style={{ color: customColor }}>
+                    Redirecionamento para Pagamento
+                  </h4>
+                </div>
+                <p className="text-sm text-center" style={{ color: `${customColor}CC` }}>
+                  Você será redirecionado automaticamente para a página de pagamento em alguns segundos...
+                </p>
+                <div className="mt-3 text-center">
+                  <a
+                    href={eventData.linkPagamento}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg font-medium transition-colors hover:opacity-90"
+                    style={{ backgroundColor: customColor }}
+                  >
+                    Ir para Pagamento Agora
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            )}
+            
             <div className="p-6 bg-white rounded-lg shadow-sm mb-8">
               <div className="flex items-center justify-center gap-3 mb-4">
                 {type === 'gratuita' ? (
@@ -564,7 +601,7 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
                       className="text-sm text-center"
                       style={{ color: `${customColor}DD` }}
                     >
-                      <strong>Importante:</strong> Após confirmar a inscrição, você receberá as instruções de pagamento por e-mail.
+                      Após confirmar sua inscrição, você será redirecionado para a página de pagamento.
                     </p>
                   </div>
                 )}

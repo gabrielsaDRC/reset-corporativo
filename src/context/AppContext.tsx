@@ -95,7 +95,8 @@ const defaultEventData: EventData = {
     sucesso: 'green',
     erro: 'red',
     aviso: 'yellow'
-  }
+  },
+  linkPagamento: 'https://hotm.art/rco497'
 };
 
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
@@ -244,7 +245,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     return {
       totalInscritos: participants.length,
       inscritosGratuitos: participants.filter(p => p.tipoInscricao === 'gratuita').length,
-      inscritosPagos: participants.filter(p => p.tipoInscricao === 'paga').length,
+      inscritosPagos: participants.filter(p => p.tipoInscricao === 'paga' && p.statusPagamento === 'aprovado').length,
       pagamentosPendentes: participants.filter(p => p.tipoInscricao === 'paga' && p.statusPagamento === 'pendente').length,
       confirmadosEvento: participants.filter(p => p.confirmadoEvento).length
     };

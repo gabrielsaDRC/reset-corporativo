@@ -57,10 +57,9 @@ export const participantService = {
       .from('participants')
       .select('id, nome, email')
       .eq('cpf', participant.cpf)
-      .single();
+      .maybeSingle();
 
-    if (checkError && checkError.code !== 'PGRST116') {
-      // PGRST116 é o código para "nenhum resultado encontrado", que é o que queremos
+    if (checkError) {
       console.error('Erro ao verificar CPF duplicado:', checkError);
       throw new Error('Erro ao verificar dados. Tente novamente.');
     }
@@ -233,7 +232,8 @@ export const eventService = {
         sucesso: eventSettings.cor_sucesso || 'green',
         erro: eventSettings.cor_erro || 'red',
         aviso: eventSettings.cor_aviso || 'yellow'
-      }
+      },
+      linkPagamento: eventSettings.link_pagamento || 'https://hotm.art/rco497'
     };
   },
 
@@ -350,7 +350,8 @@ export const eventService = {
         sucesso: data.cor_sucesso || 'green',
         erro: data.cor_erro || 'red',
         aviso: data.cor_aviso || 'yellow'
-      }
+      },
+      linkPagamento: data.link_pagamento || 'https://hotm.art/rco497'
     };
   },
 
@@ -389,7 +390,8 @@ export const eventService = {
       cor_premium: eventData.cores.premium,
       cor_sucesso: eventData.cores.sucesso,
       cor_erro: eventData.cores.erro,
-      cor_aviso: eventData.cores.aviso
+      cor_aviso: eventData.cores.aviso,
+      link_pagamento: eventData.linkPagamento
     };
 
     console.log('Dados para salvar:', updateData);
@@ -453,7 +455,8 @@ export const eventService = {
           sucesso: data.cor_sucesso || 'green',
           erro: data.cor_erro || 'red',
           aviso: data.cor_aviso || 'yellow'
-        }
+        },
+        linkPagamento: data.link_pagamento || 'https://hotm.art/rco497'
       };
     } else {
       // Se tem ID, atualizar registro específico
@@ -571,7 +574,8 @@ export const eventService = {
           sucesso: data[0].cor_sucesso || 'green',
           erro: data[0].cor_erro || 'red',
           aviso: data[0].cor_aviso || 'yellow'
-        }
+        },
+        linkPagamento: data[0].link_pagamento || 'https://hotm.art/rco497'
       };
     }
   }

@@ -84,14 +84,14 @@ export const AdminDashboard: React.FC = () => {
       value: stats.inscritosPagos,
       icon: CreditCard,
       color: 'green',
-      description: 'Participantes premium'
+      description: 'Pagamentos confirmados'
     },
     {
       title: 'Pagamentos Pendentes',
       value: stats.pagamentosPendentes,
       icon: Clock,
       color: 'yellow',
-      description: 'Aguardando pagamento'
+      description: 'Aguardando confirmação'
     },
     {
       title: 'Confirmados no Evento',
@@ -132,7 +132,7 @@ export const AdminDashboard: React.FC = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 lg:gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-6 mb-8">
         {statCards.map((card) => {
           const Icon = card.icon;
           return (
@@ -151,7 +151,7 @@ export const AdminDashboard: React.FC = () => {
         })}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         <div className="bg-white p-4 lg:p-6 rounded-lg shadow-sm border">
           <h3 className="text-lg lg:text-xl font-semibold text-gray-800 mb-4">
             Distribuição por Tipo
@@ -210,7 +210,6 @@ export const AdminDashboard: React.FC = () => {
             </div>
           </div>
         </div>
-
         {/* Distribuição por Faturamento */}
         <div className="bg-white p-4 lg:p-6 rounded-lg shadow-sm border">
           <h3 className="text-lg lg:text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">

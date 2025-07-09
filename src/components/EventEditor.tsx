@@ -938,6 +938,23 @@ export const EventEditor: React.FC = () => {
             
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">
+                Link de Pagamento
+              </label>
+              <input
+                type="url"
+                value={formData.linkPagamento || ''}
+                onChange={(e) => setFormData(prev => ({ ...prev, linkPagamento: e.target.value }))}
+                disabled={!isEditing}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
+                placeholder="https://hotm.art/resetcorporativo"
+              />
+              <p className="text-sm text-gray-500 mt-1">
+                Link para onde o usuário será redirecionado após se inscrever na modalidade premium
+              </p>
+            </div>
+            
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Descrição
               </label>
               <textarea

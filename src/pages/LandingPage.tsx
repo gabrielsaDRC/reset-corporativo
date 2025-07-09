@@ -29,7 +29,7 @@ export const LandingPage: React.FC = () => {
       <EventSchedule />
       
       {/* Seção de Inscrições */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white hidden">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
