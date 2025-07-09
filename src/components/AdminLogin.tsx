@@ -132,14 +132,8 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
 
         {!isFirstUser && (
           <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-600 mb-2">
-              <strong>Credenciais de acesso:</strong>
-            </p>
-            <p className="text-sm text-gray-600">
-              E-mail: <code className="bg-gray-200 px-1 rounded">admin@evento.com</code>
-            </p>
-            <p className="text-sm text-gray-600">
-              Senha: <code className="bg-gray-200 px-1 rounded">admin@EventoRCOC0rp0r4t1v0</code>
+            <p className="text-sm text-gray-600 mb-2 text-center">
+              <strong>Caso tenha dúvidas, contate um administrador</strong>
             </p>
           </div>
         )}

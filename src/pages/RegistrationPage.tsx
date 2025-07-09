@@ -7,6 +7,7 @@ import { EventPresentation } from '../components/EventPresentation';
 import { EventSchedule } from '../components/EventSchedule';
 import { Footer } from '../components/Footer';
 import { useColors } from '../hooks/useColors';
+import { formatCPF, formatPhone, removeCPFMask, removePhoneMask, validateCPF, validatePhone } from '../utils/inputMasks';
 
 interface RegistrationPageProps {
   type: 'gratuita' | 'paga';
@@ -32,6 +33,10 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formError, setFormError] = useState('');
+  const [validationErrors, setValidationErrors] = useState<{
+    cpf?: string;
+    telefone?: string;
+  }>({});
 
   const inscricaoData = type === 'gratuita' ? eventData.inscricaoGratuita : eventData.inscricaoPaga;
   const isAvailable = inscricaoData.disponivel;
@@ -45,12 +50,32 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
     e.preventDefault();
     setIsSubmitting(true);
     setFormError('');
+    setValidationErrors({});
+
+    // Validações
+    const errors: { cpf?: string; telefone?: string } = {};
+    
+    if (!validateCPF(formData.cpf)) {
+      errors.cpf = 'CPF inválido';
+    }
+    
+    if (!validatePhone(formData.telefone)) {
+      errors.telefone = 'Telefone inválido';
+    }
+    
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const statusPagamento = type === 'paga' ? 'pendente' : 'aprovado';
       
       await addParticipant({
         ...formData,
+        cpf: removeCPFMask(formData.cpf),
+        telefone: removePhoneMask(formData.telefone),
         statusPagamento,
         confirmadoEvento: false
       });
@@ -92,9 +117,28 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    
+    // Limpar erros de validação quando o usuário começar a digitar
+    if (validationErrors[name as keyof typeof validationErrors]) {
+      setValidationErrors(prev => ({
+        ...prev,
+        [name]: undefined
+      }));
+    }
+    
+    let formattedValue = value;
+    
+    // Aplicar máscaras
+    if (name === 'cpf') {
+      formattedValue = formatCPF(value);
+    } else if (name === 'telefone') {
+      formattedValue = formatPhone(value);
+    }
+    
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: formattedValue
     }));
   };
 
@@ -356,10 +400,18 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
                       value={formData.cpf}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent ${
+                        validationErrors.cpf 
+                          ? 'border-red-300 focus:ring-red-500' 
+                          : 'border-gray-300'
+                      }`}
                       style={{ '--tw-ring-color': customColor } as React.CSSProperties}
                       placeholder="000.000.000-00"
+                      maxLength={14}
                     />
+                    {validationErrors.cpf && (
+                      <p className="mt-1 text-sm text-red-600">{validationErrors.cpf}</p>
+                    )}
                   </div>
 
                   <div>
@@ -393,11 +445,19 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ type }) => {
                         value={formData.telefone}
                         onChange={handleChange}
                         required
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent"
+                        className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent ${
+                          validationErrors.telefone 
+                            ? 'border-red-300 focus:ring-red-500' 
+                            : 'border-gray-300'
+                        }`}
                         style={{ '--tw-ring-color': customColor } as React.CSSProperties}
                         placeholder="(11) 99999-9999"
+                        maxLength={15}
                       />
                     </div>
+                    {validationErrors.telefone && (
+                      <p className="mt-1 text-sm text-red-600">{validationErrors.telefone}</p>
+                    )}
                   </div>
 
                   <div>
