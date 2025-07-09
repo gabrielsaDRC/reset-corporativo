@@ -196,4 +196,4 @@ Sua landing page estará disponível em:
 - [ ] Testar todas as funcionalidades no domínio personalizado
 - [ ] Configurar Google Analytics (opcional)
 - [ ] Configurar Google Search Console (opcional)
-- [ ] Monitorar inscrições no painel administrativo
+- [ ] Monitorar inscrições no painel administrativ
