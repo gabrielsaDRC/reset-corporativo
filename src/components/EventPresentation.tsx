@@ -59,11 +59,11 @@ export const EventPresentation: React.FC = () => {
             </div>
 
             <div className="relative">
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl">
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl aspect-[3/4] lg:aspect-[4/5]">
                 <img
                   src={eventData.imagemUrl}
                   alt="Evento X"
-                  className="w-full h-64 lg:h-96 object-cover"
+                  className="w-full h-full object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               </div>
