@@ -106,17 +106,21 @@ export const EmailSender: React.FC = () => {
           <h4 className="font-medium text-gray-800 mb-3">Template do Email:</h4>
           <div className="bg-gray-50 p-4 rounded-lg border">
             <pre className="text-sm text-gray-700 whitespace-pre-wrap font-mono">
-{`Olá [Nome do Participante],
+{`Olá {{nome}},
 
 É com grande alegria que confirmamos a sua presença no RCO – Reset Corporativo, uma imersão transformadora que vai muito além dos negócios.
 
-O evento foi idealizado por Caroline Kherlakian, referência em reestruturação empresarial...
+O evento foi idealizado por Caroline Kherlakian, referência em reestruturação empresarial, e trará uma abordagem única para quem busca evolução nas finanças, gestão e desenvolvimento emocional. Além da Caroline, você terá acesso a conteúdos exclusivos com convidados especiais, que compartilharão vivências e estratégias práticas para impulsionar sua jornada profissional e pessoal.
 
-🗓️ Data do evento: [Data do Evento]
-📍 Local: [Local do Evento]
-⏰ Horário: [Horário do Evento]
+🗓️ Data do evento: {{data}}
+📍 Local: {{local}}
+⏰ Horário: {{horario}}
 
-...
+Prepare-se para viver um verdadeiro reset na forma de liderar, organizar e crescer com consistência.
+
+Em breve, enviaremos mais detalhes. Qualquer dúvida, estamos à disposição.
+
+Nos vemos em breve!
 
 Atenciosamente,
 Equipe Reset Corporativo`}
