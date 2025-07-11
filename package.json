@@ -11,6 +11,7 @@
     "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@supabase/storage-js": "^2.10.0",
     "@supabase/supabase-js": "^2.50.3",
     "@types/bcryptjs": "^2.4.6",

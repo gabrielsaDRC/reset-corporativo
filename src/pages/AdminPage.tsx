@@ -4,12 +4,13 @@ import { AdminLogin } from '../components/AdminLogin';
 import { AdminDashboard } from '../components/AdminDashboard';
 import { ParticipantsList } from '../components/ParticipantsList';
 import { EventEditor } from '../components/EventEditor';
+import { EmailSender } from '../components/EmailSender';
 import { Header } from '../components/Header';
-import { Shield, BarChart3, Users, Settings, Loader2 } from 'lucide-react';
+import { Shield, BarChart3, Users, Settings, Mail, Loader2 } from 'lucide-react';
 
 export const AdminPage: React.FC = () => {
   const { isAdmin, loading } = useApp();
-  const [adminSection, setAdminSection] = useState<'dashboard' | 'participants' | 'event-editor'>('dashboard');
+  const [adminSection, setAdminSection] = useState<'dashboard' | 'participants' | 'event-editor' | 'email-sender'>('dashboard');
 
   const handleLoginSuccess = () => {
     // Login success is handled by the context
@@ -93,6 +94,22 @@ export const AdminPage: React.FC = () => {
                 <Settings className="w-5 h-5" />
                 Configurações
               </button>
+              <button
+                onClick={() => setAdminSection('email-sender')}
+                className={`flex-shrink-0 lg:w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors whitespace-nowrap ${
+                  adminSection === 'email-sender' 
+                    ? 'border' 
+                    : 'text-gray-600 hover:bg-gray-50'
+                }`}
+                style={adminSection === 'email-sender' ? { 
+                  backgroundColor: '#FEF3E2', 
+                  color: '#EA9504', 
+                  borderColor: '#F3E8D1' 
+                } : {}}
+              >
+                <Mail className="w-5 h-5" />
+                Enviar Emails
+              </button>
             </nav>
           </div>
         </div>
@@ -103,6 +120,18 @@ export const AdminPage: React.FC = () => {
             <AdminDashboard />
           ) : adminSection === 'participants' ? (
             <ParticipantsList />
+          ) : adminSection === 'email-sender' ? (
+            <div className="p-4 lg:p-6">
+              <div className="mb-6">
+                <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">
+                  Envio de Emails
+                </h1>
+                <p className="text-gray-600">
+                  Envie emails de confirmação para os participantes do evento
+                </p>
+              </div>
+              <EmailSender />
+            </div>
           ) : (
             <EventEditor />
           )}
