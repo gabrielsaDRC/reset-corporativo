@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Filter, Download, Edit2, Trash2, CheckCircle, XCircle, AlertTriangle, CreditCard, Clock, ChevronLeft, ChevronRight, Settings } from 'lucide-react';
+import * as XLSX from 'xlsx';
 import { useApp } from '../context/AppContext';
 import { Participant } from '../types';
 import { ConfirmationModal } from './ConfirmationModal';
 import { SuccessNotification } from './SuccessNotification';
 
 export const ParticipantsList: React.FC = () => {
-  const { participants, updateParticipant, removeParticipant } = useApp();
+  const { participants, updateParticipant, removeParticipant, eventData } = useApp();
   const [localParticipants, setParticipants] = useState(participants);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'gratuita' | 'paga'>('all');
@@ -87,6 +88,89 @@ export const ParticipantsList: React.FC = () => {
     
     return pages;
   };
+
+  const exportToExcel = () => {
+    const exportData = filteredParticipants.map((participant, index) => ({
+      'Nº': index + 1,
+      'Nome': participant.nome,
+      'CPF': participant.cpf,
+      'Email': participant.email,
+      'Telefone': participant.telefone,
+      'Data Nascimento': participant.dataNascimento ? new Date(participant.dataNascimento).toLocaleDateString('pt-BR') : '',
+      'Gênero': participant.genero || '',
+      'Cidade': participant.cidade,
+      'Estado': participant.estado,
+      'Empresa': participant.nomeEmpresa || '',
+      'Faturamento': participant.faturamento || '',
+      'Área de Atuação': participant.areaAtuacao || '',
+      'Tipo Inscrição': participant.tipoInscricao === 'gratuita' ? 'Gratuita' : 'Paga',
+      'Status Pagamento': participant.statusPagamento === 'pendente' ? 'Pendente' : 
+                         participant.statusPagamento === 'aprovado' ? 'Aprovado' : 'Cancelado',
+      'Confirmado': participant.confirmadoEvento ? 'Sim' : 'Não',
+      'Data Inscrição': participant.dataInscricao ? new Date(participant.dataInscricao).toLocaleString('pt-BR') : ''
+    }));
+
+    // Criar estatísticas
+    const stats = {
+      'Total de Participantes': filteredParticipants.length,
+      'Inscrições Gratuitas': filteredParticipants.filter(p => p.tipoInscricao === 'gratuita').length,
+      'Inscrições Pagas': filteredParticipants.filter(p => p.tipoInscricao === 'paga').length,
+      'Pagamentos Aprovados': filteredParticipants.filter(p => p.statusPagamento === 'aprovado').length,
+      'Pagamentos Pendentes': filteredParticipants.filter(p => p.statusPagamento === 'pendente').length,
+      'Confirmados para o Evento': filteredParticipants.filter(p => p.confirmadoEvento).length,
+      'Data da Exportação': new Date().toLocaleString('pt-BR')
+    };
+
+    const statsData = Object.entries(stats).map(([key, value]) => ({
+      'Métrica': key,
+      'Valor': value
+    }));
+
+    // Criar workbook
+    const wb = XLSX.utils.book_new();
+    
+    // Adicionar aba de participantes
+    const wsParticipants = XLSX.utils.json_to_sheet(exportData);
+    XLSX.utils.book_append_sheet(wb, wsParticipants, 'Participantes');
+    
+    // Adicionar aba de estatísticas
+    const wsStats = XLSX.utils.json_to_sheet(statsData);
+    XLSX.utils.book_append_sheet(wb, wsStats, 'Estatísticas');
+
+    // Ajustar largura das colunas
+    const colWidths = [
+      { wch: 5 },   // Nº
+      { wch: 25 },  // Nome
+      { wch: 15 },  // CPF
+      { wch: 30 },  // Email
+      { wch: 15 },  // Telefone
+      { wch: 15 },  // Data Nascimento
+      { wch: 10 },  // Gênero
+      { wch: 20 },  // Cidade
+      { wch: 10 },  // Estado
+      { wch: 25 },  // Empresa
+      { wch: 20 },  // Faturamento
+      { wch: 25 },  // Área de Atuação
+      { wch: 15 },  // Tipo Inscrição
+      { wch: 15 },  // Status Pagamento
+      { wch: 12 },  // Confirmado
+      { wch: 20 }   // Data Inscrição
+    ];
+    
+    wsParticipants['!cols'] = colWidths;
+    wsStats['!cols'] = [{ wch: 30 }, { wch: 20 }];
+
+    // Gerar nome do arquivo com data e hora
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('pt-BR').replace(/\//g, '-');
+    const timeStr = now.toLocaleTimeString('pt-BR', { hour12: false }).replace(/:/g, '-');
+    const eventName = eventData?.nome?.toLowerCase().replace(/\s+/g, '_') || 'evento';
+    const filename = `participantes_${eventName}_${dateStr}_${timeStr}.xlsx`;
+
+    // Fazer download
+    XLSX.writeFile(wb, filename);
+  };
+  
   const exportToCsv = () => {
     // Exportar todos os participantes filtrados, não apenas a página atual
     const headers = [
@@ -318,11 +402,11 @@ export const ParticipantsList: React.FC = () => {
             </select>
             
             <button
-              onClick={exportToCsv}
+              onClick={exportToExcel}
               className="flex items-center justify-center gap-2 px-4 py-2 lg:py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors whitespace-nowrap"
             >
               <Download className="w-4 h-4" />
-              <span className="hidden sm:inline">Exportar CSV</span>
+              <span className="hidden sm:inline">Exportar Excel</span>
               <span className="sm:hidden">CSV</span>
             </button>
           </div>
